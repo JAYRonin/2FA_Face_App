@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up Face{% endblock %}
+
+{% block head %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="{{url_for('static', filename='face-api.min.js')}}"></script>
+  <script src="{{url_for('static', filename='signUpFace.js')}}"></script>
+
+  <style>
+    .videoContainer {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: absolute;
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .adjust {
+      position: relative;
+      width: 720px;
+      left: 200px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    input.larger {
+      width: 35px;
+      height: 35px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="adjust">
+    <h1>Instructions:</h1>
+    <li>Make sure that the algorithm is detecting only your face.</li>
+    <li>You will see a blue rectangle tracking your face.</li>
+    <li>Look straight to the camera, and press the Send button.</li>
+    <li>We will recive your face measurements and store them.</li>
+    <li>After that the registration proces will be finnished.</li>
+  </div>
+
+<div class="videoContainer" id="videoContainer">
+  <video id="video" width="720" height="560" autoplay muted></video> 
+  <br/>
+</div>
+
+<div class="wrapper">
+    <input type="checkbox" class="larger" name="permision" id="permision" onclick="onCheckHandler()">
+    <strong id="text">Check if you agree with the terms of data privacy</strong>
+    <button type="button" class="btn btn-primary" id="Send" style="display: none;" onclick="onClickHandler()">Send</button> 
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+{% block title %}Sign Up Face{% endblock %}
+
+{% block head %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="{{url_for('static', filename='face-api.min.js')}}"></script>
+  <script src="{{url_for('static', filename='loginFace.js')}}"></script>
+  <style>
+    .videoContainer {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: absolute;
+    }
+  </style>
+{% endblock %}
+{% block content %} 
+<div class="videoContainer" id="videoContainer">
+  <video id="video" width="720" height="560" autoplay muted></video>
+</div>
+{% endblock %}
