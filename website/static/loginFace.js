@@ -1,12 +1,13 @@
 const API_URL = "http://127.0.0.1:5000"
 
+// Załadowanie modeli po stronie klienta
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/static/models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('/static/models'),
   faceapi.nets.faceRecognitionNet.loadFromUri('/static/models'),
 ]).then(startVideo)
 
-
+// Uruchomienie systemu biometrycznego; upewni się że kamera jest włączona oraz że modele zostały załadowane
 function startVideo() {
   const video = document.getElementById('video')
   console.log(video)
@@ -31,7 +32,7 @@ function startVideo() {
     stream => video.srcObject = stream,
     err => console.error(err)
   )
-  setInterval(() => this.sendDescriptor(), 2000)
+  setInterval(() => this.sendDescriptor(), 2000) // uruchamianie sendDescriptor co 2 sekundy
 }
 
 // Komunikacja klient <-> serwer

@@ -1,5 +1,6 @@
 const API_URL = "http://127.0.0.1:5000"
 
+// Odblokowuje przycisk submit po zaakceptowaniu zgody
 function onCheckHandler() {
   var checkBox = document.getElementById("permision");
   var button = document.getElementById("Send");
@@ -15,17 +16,19 @@ function onCheckHandler() {
   }
 }
 
+// przycisk submit uruchamia sendDescriptor
 function onClickHandler() {
     this.sendDescriptor();
 }
 
+// Załadowanie modeli po stronie klienta
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/static/models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('/static/models'),
   faceapi.nets.faceRecognitionNet.loadFromUri('/static/models'),
 ]).then(startVideo)
 
-
+// Uruchomienie systemu biometrycznego; upewni się że kamera jest włączona oraz że modele zostały załadowane
 function startVideo() {
   const video = document.getElementById('video')
   console.log(video)

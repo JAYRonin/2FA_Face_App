@@ -92,11 +92,11 @@ def loginFace():
         if encodings == 'undefined':
             current_app.logger.info(f'POST request empty from {user}')
             flash("we can't see you, no data recived!", category='error')
-            return Response(status=204) # fail response - powtórzenie całego procesu
+            return Response(status=204)     # fail response - powtórzenie całego procesu
 
         # encodings przesłane pomyślnie, weryfikacja tożsamości     
         else:
-            # alagorytm przetwarzający encodings dictionary -> np array
+            # alagorytm przetwarzający encodings dictionary -> numpy array
             decodedEncodings = numpy.array([])
             decodedEncodingsDB = numpy.array([])
 
@@ -111,7 +111,7 @@ def loginFace():
             if True in matches:
                 flash('Welcom Back!', category='success')
                 current_app.logger.info(f'successful login for {user}')
-                login_user(user)           # zalogowanie użytkownika - 2 etap logowania
+                login_user(user)            # zalogowanie użytkownika - 2 etap logowania
                 return Response(status=200) # success response - przekierowanie zalogowanego użytkownika do Home
 
             # błędne logowanie, można traktować jako próbę włamania.

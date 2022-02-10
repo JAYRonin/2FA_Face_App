@@ -19,11 +19,11 @@ def login():
         flash('you don\'t need to log in twice.', category='error')
         return redirect(url_for('views.home'))
     
-    # haker próbujący wysyłać żądania POST mimo zablokowania
+    # klient próbujący wysyłać żądania POST mimo zablokowania
     if 'impostor' in session:
         hacker = session['impostor']
         flash('do not refresh the page', category='error')
-        current_app.logger.info(f'Potential brute force attack detected for {hacker}')
+        current_app.logger.info(f'Potential brute force attack detected for {hacker}') # wiele żądań może świadczyć o ataku brute force
         return render_template("login.html", user=current_user)
 
     # przetwarzanie żądania
@@ -37,10 +37,10 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 flash('ok, now look to the camera.', category='success')
-                session['id'] = user.id
+                session['id'] = user.id                    # Nadanie ID użytkownika w sesji, świadczy o autoryzacji 1 etapu
                 return redirect(url_for('authFace.loginFace'))
 
-            # logika odpowiedzialna za zablokowanie po 3 nieudanych próbach logowania
+        # logika odpowiedzialna za zablokowanie po 3 nieudanych próbach logowania
             else:
                 flash('Wrong credentials!', category='error')
                 if 'attempts' not in session:
@@ -63,7 +63,7 @@ def login():
                 attempts += 1
                 session['attempts'] = attempts
                 if session['attempts'] == 3:
-                    session['impostor'] = request.environ['REMOTE_ADDR']
+                    session['impostor'] = request.environ['REMOTE_ADDR'] # Nadanie kategorii impostor wraz z adresem IP w sesji, świadczy o zablokowaniu klienta
                     flash('Come back in 5 minutes!')
                     return render_template("login.html", user=current_user)
 
@@ -110,7 +110,7 @@ def sign_up():
         # poprawne dane, ukończenie 1 etapu rejestracji
         else:
             new_user = User( email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='pbkdf2:sha512:120000') )
+                password1, method='pbkdf2:sha512:120000') ) # Generowanie hashu hasła 
 
             db.session.add(new_user)
             db.session.commit()
