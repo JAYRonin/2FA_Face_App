@@ -109,9 +109,9 @@ def loginFace():
 
             # pomyślne logowanie
             if True in matches:
-                flash('Welcom Back!', category='success')
                 current_app.logger.info(f'successful login for {user}')
                 login_user(user)            # zalogowanie użytkownika - 2 etap logowania
+                flash('Welcom Back!', category='success')
                 return Response(status=200) # success response - przekierowanie zalogowanego użytkownika do Home
 
             # błędne logowanie, można traktować jako próbę włamania.

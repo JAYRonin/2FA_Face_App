@@ -32,7 +32,7 @@ function startVideo() {
     stream => video.srcObject = stream,
     err => console.error(err)
   )
-  setInterval(() => this.sendDescriptor(), 2000) // uruchamianie sendDescriptor co 2 sekundy
+  setInterval(() => this.sendDescriptor(), 5000) // uruchamianie sendDescriptor co 2 sekundy
 }
 
 // Komunikacja klient <-> serwer
@@ -40,18 +40,17 @@ async function sendDescriptor() {
   if (this.detections[0] === undefined) {
     console.log('error catched')
     axios.post(`${API_URL}/login-face`, {
-    encodings: 'undefined'
+      encodings: 'undefined'
     })
     .then((res) => {
-    console.log(res);
-    if(res.status === 204) {
+      console.log(res);
+      if(res.status === 204) {
         window.location.href = `${API_URL}/login-face`;
     }
     })
     .catch(function (error) {
-        console.log(error);
+      console.log(error);
     });
-
   }
   else {
     axios.post(`${API_URL}/login-face`, {
@@ -66,9 +65,9 @@ async function sendDescriptor() {
       if(res.status === 401) {
         window.location.href = `${API_URL}/login`;
       }
-   })
-   .catch(function (error) {
-    console.log(error);
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   }
 }

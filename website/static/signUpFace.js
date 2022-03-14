@@ -57,33 +57,33 @@ function startVideo() {
 
 // Komunikacja klient <-> serwer
 async function sendDescriptor() {
-    if (this.detections[0] === undefined) {
-        console.log('error catched')
-        axios.post(`${API_URL}/sign-up-face`, {
-        encodings: 'undefined'
-        })
-        .then((res) => {
-        console.log(res);
-        if(res.status === 204) {
-            window.location.href = `${API_URL}/sign-up-face`;
-        }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-    else {
-        axios.post(`${API_URL}/sign-up-face`, {
-        encodings: this.detections[0].descriptor
-        })
-        .then((res) => {
-        console.log(res);
-        if(res.status === 200) {
-            window.location.href = `${API_URL}`;
-        }
-        })
-        .catch(function (error) {
-        console.log(error);
-        });
-    }
+  if (this.detections[0] === undefined) {
+    console.log('error catched')
+    axios.post(`${API_URL}/sign-up-face`, {
+    encodings: 'undefined'
+    })
+    .then((res) => {
+      console.log(res);
+      if(res.status === 204) {
+        window.location.href = `${API_URL}/sign-up-face`;
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  else {
+    axios.post(`${API_URL}/sign-up-face`, {
+      encodings: this.detections[0].descriptor
+    })
+    .then((res) => {
+      console.log(res);
+      if(res.status === 200) {
+        window.location.href = `${API_URL}`;
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 }
